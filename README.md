@@ -42,6 +42,9 @@ Prerequisites:
     pip install -r requirements.txt
     ```
 
+## 📚 Documentation
+For a detailed walkthrough with screenshots and FAQs, please see the [User Guide](USER_GUIDE.md).
+
 ## 🚀 Usage
 
 1.  **Run the application**:
