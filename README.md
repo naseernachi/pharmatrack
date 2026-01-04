@@ -1,6 +1,6 @@
 # PharmaTrack Pro 🏥
 
-![License](https://img.shields.io/github/license/naseernachi/pharmatrack?style=flat-square)
+![License](https://img.shields.io/badge/license-GPLv3-blue?style=flat-square)
 
 **PharmaTrack Pro** is a secure, local-first expense and sales tracking application designed specifically for pharmacy management. It streamlines daily financial reporting, automates cash reconciliation, and provides secure data handling with admin-level protection.
 
