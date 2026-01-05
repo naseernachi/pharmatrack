@@ -76,5 +76,5 @@ This project is licensed under the **GNU GPLv3 License** - see the [LICENSE](LIC
 ---
 ### 🤝 Connect
 Created by **Naseef AK**.
-[LinkedIn](https://www.linkedin.com/in/naseef-ak-24155121b/)
+[LinkedIn](https://www.linkedin.com/in/aknaseef/)
 
