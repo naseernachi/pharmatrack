@@ -416,26 +416,48 @@
                 if (res.ok) {
                     const data = await res.json();
                     if (data) {
+                        const today = new Date();
+                        today.setMinutes(today.getMinutes() - today.getTimezoneOffset());
+                        const todayStr = today.toISOString().slice(0, 10);
+
+                        const recordDate = data.date ? data.date.slice(0, 10) : '';
+                        const isToday = recordDate === todayStr;
+
                         // Populate and Lock Previous Reading
                         const prevReadingInput = document.querySelector('input[name="prev_reading"]');
                         if (prevReadingInput) {
-                            prevReadingInput.value = (data.curr_reading || 0).toFixed(2);
+                            // If same day, we keep the prev_reading from the record (it might have been set correctly)
+                            // If new day, prev_reading becomes the OLD curr_reading
+                            if (isToday) {
+                                prevReadingInput.value = (data.prev_reading || 0).toFixed(2);
+                            } else {
+                                prevReadingInput.value = (data.curr_reading || 0).toFixed(2);
+                            }
+
                             // Update label with date
                             const prevLabel = document.getElementById('prev-reading-label');
                             if (prevLabel && data.date) {
-                                prevLabel.textContent = `Previous Total Sale (${formatDateTime(data.date)})`;
+                                prevLabel.textContent = `Previous Reading (${formatDateTime(data.date)})`;
                             }
                         }
 
-                        // Populate and Lock Opening Petty.classList.add('bg-slate-100', 'text-slate-500', 'cursor-not-allowed');
+                        prevReadingInput.classList.add('bg-slate-100', 'text-slate-500', 'cursor-not-allowed');
                         prevReadingInput.classList.remove('bg-white');
 
                         // Populate and Lock Opening Petty
                         const openingPettyInput = document.querySelector('input[name="opening_petty"]');
-                        openingPettyInput.value = data.closing_petty;
+
+                        if (isToday) {
+                            // If record is from today, use its opening_petty (e.g. from Setup)
+                            openingPettyInput.value = data.opening_petty;
+                        } else {
+                            // If record is past, carry forward closing to opening
+                            openingPettyInput.value = data.closing_petty;
+                        }
+
                         openingPettyInput.setAttribute('readonly', true);
                         openingPettyInput.classList.add('bg-slate-100', 'text-slate-500', 'cursor-not-allowed');
-                        openingPettyInput.classList.remove('bg-slate-50', 'bg-white'); // Removed likely bg classes
+                        openingPettyInput.classList.remove('bg-slate-50', 'bg-white');
 
                         // Recalculate totals with new values
                         calcTotals();
@@ -509,6 +531,13 @@
             e.preventDefault();
             const formData = new FormData(e.target);
             const data = Object.fromEntries(formData.entries());
+
+            // Handle ID
+            if (!data.id) {
+                delete data.id;
+            } else {
+                data.id = parseInt(data.id);
+            }
 
             // Backend expects "total_sale" to come from sum of components or single field.
             // But we actually now drive sales from Total Sale Input.
@@ -757,11 +786,11 @@
             try {
                 const res = await fetch('/check-setup');
                 const data = await res.json();
-                
+
                 if (!data.is_setup) {
                     const setupModal = document.getElementById('setup-modal');
                     setupModal.showModal();
-                    
+
                     // Prevent closing with Esc
                     setupModal.addEventListener('cancel', (e) => e.preventDefault());
                 } else {
@@ -772,21 +801,21 @@
                 loadHistory(); // Fallback
             }
         });
-        
+
         async function handleSetupSubmit(e) {
             e.preventDefault();
             const password = document.getElementById('setup-password').value;
             const opening_petty = parseFloat(document.getElementById('setup-petty').value);
-            
+
             if (!password || isNaN(opening_petty)) return;
-            
+
             try {
                 const res = await fetch('/setup', {
                     method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({password, opening_petty})
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ password, opening_petty })
                 });
-                
+
                 const data = await res.json();
                 if (data.success) {
                     alert("Setup Complete! Welcome aboard. 🚀");
