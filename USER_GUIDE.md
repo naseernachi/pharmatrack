@@ -51,7 +51,6 @@ This section tells you if your cash matches your records.
 4.  **Difference**: The system highlights if you are **Short** (Red) or **Excess** (Green).
 
 ![Filled Dashboard](docs/images/dashboard_filled.png)
-![Reconciliation Result](docs/images/reconciliation.png)
 
 ---
 
