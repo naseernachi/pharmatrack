@@ -1,109 +1,79 @@
 # PharmaTrack Pro: User Guide
 
-Welcome to **PharmaTrack Pro**, your secure and efficient daily expense and sales tracker tailored for pharmacy management. This guide will walk you through the first-time setup and daily operations.
+Welcome to **PharmaTrack Pro**, your secure and efficient daily expense and sales tracker tailored for pharmacy management. This guide will walk you through the setup and daily operations.
 
 ---
 
-## 🚀 First-Time Setup
-When you launch the application for the very first time, you will be greeted by the **Welcome Screen**.
+## 🚀 1. First-Time Setup
+When you launch the application for the first time (or after a reset), you will see the **Setup Wizard**.
 
-**Action Required:**
-1.  **Create Admin Password**: Set a secure password. This will be required for sensitive actions like editing past reports or exporting data.
-2.  **Starting Petty Cash**: Enter the amount of cash currently in the drawer. This sets your opening balance for the first day.
+### **Step-by-Step:**
+1.  **Create Admin Password**: Choosing a secure password is crucial. You will need this password later to **edit reports**, **unlock petty cash**, or **export data**.
+2.  **Starting Petty Cash**: Count the literal cash currently in your drawer (e.g., 500 AED) and enter it here. This establishes the baseline for your financial tracking.
+3.  Click **Complete Setup**.
 
 ![Setup Screen](docs/images/setup_screen.png)
 
-> [!IMPORTANT]
-> Your password is saved securely. If you restart the app, you won't need to do this again.
+---
+
+## 📊 2. The Dashboard Overview
+Once setup is complete, you will be taken to the main Daily Entry dashboard. This is where you will record all activity for the day.
+
+![Empty Dashboard](docs/images/dashboard_empty.png)
+
+The dashboard is divided into three key sections:
+1.  **Meter & Readings**: Tracks the total sales from your POS system.
+2.  **Sales Breakdown**: Splits the total into Cash, Card, and other payments.
+3.  **Cash Reconciliation**: The most important part—verifying the physical cash in the drawer.
 
 ---
 
-## 📊 Daily Workflow (Main Dashboard)
-The main dashboard is designed for speed. Use the **Tab** key to move between fields.
+## 📝 3. Daily Entry Workflow
 
-![Main Dashboard](docs/images/main_dashboard.png)
+### A. Entering Sales & Readings
+1.  **Current Reading**: Enter the "Total Sale" figure from your POS machine or software.
+    *   The system automatically calculates the *Calculated Cash Sale* based on this.
+2.  **Payment Breakdown**: Enter amounts for **Card**, **Talabat**, **Insurance**, and **Credit Sales**.
+    *   The system subtracts these from the Total Sale to determine how much *should* be in cash.
 
-### 1. Sales & Collections
-Enter your daily figures in the **Sales** section:
-*   **Total Meter Sale**: The total sales reading from your system.
-*   **Payment Methods**: Break down the total into **Cash**, **Card**, **Talabat**, **Insurance**, and **Credit**.
+### B. Recording Expenses
+Enter any money taken *out* of the drawer:
+*   **Medicine Purchase**: Cash used to buy inventory.
+*   **Other Expenses**: Daily operational costs (food, supplies).
+*   **Collection**: Money removed by the owner/manager for deposit.
 
-### 2. Expenses
-Record any payouts in the **Expenses** section:
-*   **Medicine Purchases**: Cash used to buy stock.
-*   **Other Expenses**: Operational costs (food, transport, etc.).
+### C. Cash Reconciliation (The Final Check)
+This section tells you if your cash matches your records.
 
-### 3. Cash Reconciliation
-*   **Opening Petty Cash**: This effectively carries over from the previous day's closing.
-*   **Current Reading**: Your total daily sales.
-*   **Actual Cash**: Count the physical cash and enter it here.
-*   **Discrepancy**: The system automatically calculates if you are over or short.
+1.  **Opening Petty (Locked)**: This is automatically filled from yesterday's closing balance.
+2.  **Expected Cash**: The system calculates: `Opening + Cash Sales - Expenses = Expected`.
+3.  **Cash In Hand (Final Check)**: Count your physical cash and enter it here.
+4.  **Difference**: The system highlights if you are **Short** (Red) or **Excess** (Green).
 
-> [!NOTE]
-> The **Opening Petty Cash** field is **LOCKED** by default to prevent accidental changes.
-
----
-
-## 🔒 Admin Security Features
-Sensitive operations are protected by your Admin Password.
-
-### Unlocking Petty Cash
-If you need to adjust the Opening Petty Cash:
-1.  Click the **Lock Icon** 🔒 next to the field.
-2.  Enter your **Admin Password** in the popup.
-3.  The field will unlock (turn green).
-4.  To re-lock it immediately, click the **Unlock Icon** 🔓.
-
-![Unlocked Petty Cash](docs/images/unlocked_petty.png)
-
-### Editing Past Reports
-To Change a previous entry:
-1.  Click **History** in the top navigation.
-2.  Click the **Pencil Icon** ✏️ next to the report you want to change.
-3.  Enter your **Admin Password**.
-4.  The form will load with that day's data for you to modify.
-
-![History View](docs/images/history_view.png)
-
-![Admin Prompt](docs/images/admin_prompt.png)
+![Filled Dashboard](docs/images/dashboard_filled.png)
+![Reconciliation Result](docs/images/reconciliation.png)
 
 ---
 
-## 💾 Excel Backup & Ledger Sync
+## 🕒 4. History & Editing
+To view or correct past reports:
+1.  Click the **History** button in the top navigation bar.
+2.  A list of recent reports will appear.
+3.  Click the **Edit (Pencil)** icon to modify a report (requires Admin Password).
+4.  Click the **View (Eye)** icon to see a printable summary.
 
-Your data is handled in two ways to ensure safety and flexibility:
+![History Modal](docs/images/history.png)
 
-### 1. Auto-Sync Ledger (Live Log)
-Every time you add a **New Entry**, the app automatically appends it to a local Excel file (`pharmacy_expenses.xlsx`) on your computer.
-*   **Purpose**: Acts as a running "Log Book" of daily activity.
-*   **Note**: This only records *new* entries. If you edit a report later, the log is not changed (to preserve the original record).
+---
 
-### 2. Full Database Export (Export CSV)
-To get a complete, up-to-date copy of your entire history (including all edits and corrections):
-1.  Click **Export CSV** in the top right corner.
+## 💾 5. Exporting Data
+To save a backup or send data to your accountant:
+1.  Click **Export CSV** in the top right.
 2.  Enter your **Admin Password**.
-3.  The file `transactions.csv` will download.
-*   **Purpose**: Use this for your official monthly accounting or secure backups.
-
-> [!TIP]
-> Perform a "Full Export" weekly to keep a safe offline copy of your financial data.
+3.  A file named `transactions.csv` will be downloaded to your computer containing all records.
 
 ---
 
-## ❓ Frequently Asked Questions (FAQ)
-
-### Q: What happens if I close the app or restart my computer?
-**A: Your data is 100% safe.**
-The app saves every entry instantly to a permanent internal database (`pharmacy_data.db`). Closing the window or shutting down your computer does not affect your saved data. When you open the app again, everything will be exactly where you left it.
-
-### Q: Can I use the app without an internet connection?
-**A: Yes.**
-PharmaTrack Pro is a local application running on your own machine. It does not require the internet to function.
-
-### Q: I forgot my Admin Password. What do I do?
-**A:** Please contact your IT administrator. For security reasons, there is no automatic reset option to prevent unauthorized access.
-
----
-
-## Technical Support
-If you encounter any issues (`Error validating password`, etc.), simply reload the page. The app is designed to be robust and self-healing.
+## ❓ Troubleshooting
+*   **"Opening Petty" is wrong**: Click the **Lock Icon** 🔒 next to the field and enter your admin password to manually correct it.
+*   **Forgot Password**: Contact your system administrator to reset the database (Note: This clears all data).
